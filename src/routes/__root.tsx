@@ -7,8 +7,12 @@ import {
   Scripts,
 } from '@tanstack/react-router'
 
-//ShadCN
+import { ModeToggle } from '@/components/mode-toggle'
+
 import appCss from "@/styles/app.css?url"
+
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { AppSidebar } from '@/components/app-sidebar'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -34,6 +38,7 @@ export const Route = createRootRoute({
   component: RootComponent,
 })
 
+
 function RootComponent() {
   return (
     <RootDocument>
@@ -48,10 +53,17 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       <head>
         <HeadContent />
       </head>
-        <body>
-          {children}
-          <Scripts />
-        </body>
+          <body>
+            <SidebarProvider>
+              <AppSidebar/>
+                <main>
+                  <SidebarTrigger />
+                  {children}
+                </main>
+              </SidebarProvider>
+            <Scripts />
+            <ModeToggle></ModeToggle>
+          </body>
     </html>
   )
 }

@@ -5,59 +5,28 @@ import { createServerFn } from '@tanstack/react-start'
 import { Button } from '@/components/ui/button'
 
 import { ModeToggle } from '@/components/mode-toggle'
-import { TopNavbar } from '@/components/top-navbar'
 import { ListingGrid } from '@/components/listing-grid'
-import { SideBar } from '@/components/sidebar'
+import { AppSidebar } from '@/components/app-sidebar'
 
 
-
-const filePath = 'count.txt'
-
-async function readCount() {
-  return parseInt(
-    await fs.promises.readFile(filePath, 'utf-8').catch(() => '0'),
-  )
-}
-
-const getCount = createServerFn({
-  method: 'GET',
-}).handler(() => {
-  return readCount()
-})
-
-const updateCount = createServerFn({ method: 'POST' })
-  .validator((d: number) => d)
-  .handler(async ({ data }) => {
-    const count = await readCount()
-    await fs.promises.writeFile(filePath, `${count + data}`)
-  })
 
 export const Route = createFileRoute('/')({
   component: Home,
-  loader: async () => await getCount(),
+  loader: async () => {
+    return {
+      message: "test",
+    }
+  },
 })
-
-
 function Home() {
-  const router = useRouter()
-  const state = Route.useLoaderData()
+  const data = Route.useLoaderData()
+  const img = "https://picsum.photos/200"
 
   return (
     <div>
-        <SideBar></SideBar>
-        <TopNavbar></TopNavbar>
-        <ListingGrid></ListingGrid>
-        <ModeToggle></ModeToggle>
-        <Button
-        type="button"
-        onClick={() => {
-            updateCount({ data: 1 }).then(() => {
-              router.invalidate()
-            })
-        }}
-        >
-        Add 1 to {state}?
-        </Button>
+        <AppSidebar></AppSidebar>
+        <ListingGrid imageSrc={img}></ListingGrid>
+        <p>test</p>
     </div>
   )
 }

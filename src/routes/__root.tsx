@@ -7,7 +7,7 @@ import {
   Scripts,
 } from '@tanstack/react-router'
 
-import { ModeToggle } from '@/components/mode-toggle'
+import { ModeToggle } from '@/components/core/mode-toggle'
 
 import appCss from "@/styles/app.css?url"
 

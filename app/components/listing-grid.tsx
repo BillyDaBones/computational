@@ -17,6 +17,9 @@ interface GridItem {
         alt: string
     },
 }
+interface ListingGridProps {
+    imageSrc: string
+}
 
 const GridCard = (content: GridItem) => {
     return (
@@ -37,11 +40,11 @@ const GridCard = (content: GridItem) => {
             </div>
     )
 }
-export const ListingGrid = ({imageSrc}) => {
+export const ListingGrid = (props: ListingGridProps) => {
     return (
         <div className="flex flex-wrap w-screen h-full gap-2 p-8">
-            <GridCard title="1999 Honda Accord" subheading="San Francisco" miniheading="600k miles" price={600} img={{src: imageSrc, alt: "a randomly generated prop"}}></GridCard>
-            <GridCard title="1999 Honda Accord" subheading="San Francisco" miniheading="600k miles" price={600} img={{src: imageSrc, alt: "a randomly generated prop"}}></GridCard>
+            <GridCard title="1999 Honda Accord" subheading="San Francisco" miniheading="600k miles" price={600} img={{src: props.imageSrc, alt: "a randomly generated prop"}}></GridCard>
+            <GridCard title="1999 Honda Accord" subheading="San Francisco" miniheading="600k miles" price={600} img={{src: props.imageSrc, alt: "a randomly generated prop"}}></GridCard>
 
         </div>
     )
